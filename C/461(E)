@@ -1,0 +1,9 @@
+int hammingDistance(int x, int y){
+    int dif=x^y;                 //let the different position become 1, other become 0;
+    int num=0;                   //count the hamming distance
+    while(dif){
+        num+=dif&1;              //check if the last position is 1
+        dif>>=1;                 //binary right shift 
+    }
+    return num;
+}
