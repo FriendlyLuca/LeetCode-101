@@ -1,0 +1,45 @@
+class Solution {
+    public int romanToInt(String s) {
+        int sum=0;
+        for (int i=0;i<s.length();i++)
+            sum+=toInt(s,i);
+        return sum;
+    }
+    int toInt(String s,int index){
+        char c=s.charAt(index);
+        int res=0;
+        switch (c){
+            case 'I':
+                if (index<s.length()-1&&(s.charAt(index+1)=='V'||s.charAt(index+1)=='X'))
+                    res=-1;
+                else
+                    res=1;
+                break;
+            case 'X':
+                if (index<s.length()-1&&(s.charAt(index+1)=='L'||s.charAt(index+1)=='C'))
+                    res=-10;
+                else
+                    res=10;
+                break;
+            case 'C':
+                if (index<s.length()-1&&(s.charAt(index+1)=='D'||s.charAt(index+1)=='M'))
+                    res=-100;
+                else
+                    res=100;
+                break;
+            case 'V':
+                res=5;
+                break;
+            case 'L':
+                res=50;
+                break;
+            case 'D':
+                res=500;
+                break;
+            case 'M':
+                res=1000;
+                break;
+        }
+        return res;
+    }
+}
