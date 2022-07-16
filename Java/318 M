@@ -3,14 +3,15 @@ import java.util.*;
 class Solution {
     public int maxProduct(String[] words) {
         //HashMap<String,int[]> mp=new HashMap<String,int[]>();     // using a int[] to denote what letter String s have
-        HashMap<Integer,Integer> mb=new HashMap<Integer, Integer>();// simpify mp to mb. String to index, int[] to binary int
+        //HashMap<Integer,Integer> mb=new HashMap<Integer, Integer>();// simpify mp to mb. String to index, int[] to binary int
+        int[]mb=new int[words.length];                               //simpify mb to an array
         for (int i=0;i<words.length;i++){
-            mb.put(i,bch(words[i]));
+            mb[i]=bch(words[i]));
         }
         int maxn=0;
         for (int i=0;i<words.length-1;i++){
             for (int j=i+1;j<words.length;j++){
-                if ((mb.get(i)&mb.get(j))==0&&maxn<words[i].length()*words[j].length()){
+                if ((mb[i]&mb[j])==0&&maxn<words[i].length()*words[j].length()){
                     maxn=words[i].length()*words[j].length();
                 }
             }
