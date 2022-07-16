@@ -1,0 +1,10 @@
+class Solution {
+    public int missingNumber(int[] nums) {
+        int sum=0;
+        for (int i=0;i<nums.length;i++){
+            sum^=nums[i]^i;                 // a^a=0, So sum^ i means sum ^(0-n-1),sum^nums[i] means sum^ every number except missing number
+        }
+        sum^=nums.length;                   // then, sum ^ every number twice except the missing num, so sum= missing num;
+        return sum;
+    }
+}
