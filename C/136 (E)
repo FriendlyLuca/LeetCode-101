@@ -1,0 +1,7 @@
+int singleNumber(int* nums, int numsSize){
+    int a=0;                    //use ^, every pair of number donging ^ twice will make a be 0 again; and then 0^ single number will be single number itself
+    for (int i=0;i<numsSize;i++){
+        a^=nums[i];
+    }
+    return a;
+}
