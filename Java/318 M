@@ -1,0 +1,47 @@
+import java.util.*;
+
+class Solution {
+    public int maxProduct(String[] words) {
+        //HashMap<String,int[]> mp=new HashMap<String,int[]>();     // using a int[] to denote what letter String s have
+        HashMap<Integer,Integer> mb=new HashMap<Integer, Integer>();// simpify mp to mb. String to index, int[] to binary int
+        for (int i=0;i<words.length;i++){
+            mb.put(i,bch(words[i]));
+        }
+        int maxn=0;
+        for (int i=0;i<words.length-1;i++){
+            for (int j=i+1;j<words.length;j++){
+                if ((mb.get(i)&mb.get(j))==0&&maxn<words[i].length()*words[j].length()){
+                    maxn=words[i].length()*words[j].length();
+                }
+            }
+        }
+        return maxn;
+    }
+//    private int[] ch(String s){           // to let an int[] to denote if a certain letter occurs in s
+//        int[] c=new int[26];
+//        for (int i=0;i<s.length();i++){
+//            c[s.charAt(i)-'a']=1;
+//        }
+//        return c;
+//    }
+    private int bch(String s){
+        int b=0;
+        for (int i = 0; i < s.length(); i++) {
+            b+=1<<(s.charAt(i)-'a');
+        }
+        return b;
+    }
+//    private boolean cmp(int[] a, int[] b){    // to compare if int[] a and int []b don't have the same letter
+//        for (int i = 0; i < a.length; i++) {
+//            if ((a[i]&b[i])==1)
+//                return false;
+//        }
+//        return true;
+//    }
+
+    public static void main(String[] args) {
+        Solution a=new Solution();
+        String[]s= {"abcw", "baz", "foo", "bar", "xtfn", "abcdef"};
+        System.out.println(a.maxProduct(s));
+    }
+}
