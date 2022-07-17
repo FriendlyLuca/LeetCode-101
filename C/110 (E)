@@ -1,15 +1,19 @@
 class Solution {
-    public boolean isBalanced(TreeNode root) {
-        if (root==null)
+public:
+    bool isBalanced(TreeNode* root) {
+        if (root==NULL)
             return true;
-        int l=dep(root.left);
-        int r=dep(root.right);
-        return (Math.abs(l-r)<=1&&isBalanced(root.left)&&isBalanced(root.right));
+        int depl=dep(root->left);
+        int depr=dep(root->right);
+        return (abs(depl-depr)<=1)&&isBalanced(root->left)&&isBalanced(root->right);
+        
+
+
     }
-    private int dep(TreeNode root){
-        if (root==null)
+    int dep(TreeNode* root) {
+        if (root==NULL)
             return 0;
         else
-            return Math.max(dep(root.left),dep(root.right))+1;
+            return max(dep(root->left),dep(root->right))+1;
     }
-}
+};
