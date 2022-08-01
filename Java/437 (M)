@@ -15,3 +15,24 @@ class Solution {
         return count;
     }
 }
+/* if we make path function as void function*/
+class Solution {
+    int count=0;
+    public int pathSum(TreeNode root, int targetSum) {
+        if (root==null)
+            return 0;
+        path(root,targetSum);
+        pathSum(root.left,targetSum);
+        pathSum(root.right,targetSum);
+        return count;
+    }
+    private void path(TreeNode root, long targetSum){
+        if (root==null){
+            return;
+        }
+        if (root.val==targetSum)
+            count++;
+        path(root.left,targetSum-root.val);
+        path(root.right,targetSum-root.val);
+    }
+}
