@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        return root==NULL?true:twoS(root->left,root->right);
+    }
+
+    bool twoS(TreeNode* left,TreeNode* right){
+        if (left==NULL&&right==NULL)
+            return true;
+        else if (left==NULL||right==NULL)
+            return false;
+        else if (left->val!=right->val)
+            return false;
+        else
+            return twoS(left->left,right->right)&&twoS(left->right,right->left);
+    }
+};
