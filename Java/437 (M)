@@ -1,0 +1,17 @@
+class Solution {
+    public int pathSum(TreeNode root, int targetSum) { // there two posibilities. One is this node is in the path, one is not. So, let's only consider about the number start from this node and all conditon of its child nodes.
+        if (root==null)
+            return 0;
+        else
+            return path(root,targetSum)+pathSum(root.left,targetSum)+pathSum(root.right,targetSum);
+    }
+    private int path(TreeNode root, long targetSum){ // this function counts the number of paths start from this node. BTW, targetSum might out of range so we use long instead of int
+        if (root==null){
+            return 0;
+        }
+        int count=targetSum==root.val?1:0;
+        count+=path(root.left,targetSum-root.val);
+        count+=path(root.right,targetSum-root.val);
+        return count;
+    }
+}
