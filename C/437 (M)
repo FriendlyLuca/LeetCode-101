@@ -1,0 +1,16 @@
+//More details in Java
+class Solution {
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+        return root==NULL?0:path(root,targetSum)+pathSum(root->left,targetSum)+pathSum(root->right,targetSum);
+    }
+
+    int path(TreeNode* root, long targetSum){
+        if (root==NULL)
+            return 0;
+        int count=targetSum==root->val?1:0;
+        count+=path(root->left,targetSum-root->val);
+        count+=path(root->right,targetSum-root->val);
+        return count;
+    }
+};
