@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+    int result=0;
+    maxd(root,result);
+    return result;
+    }
+private:
+    int dep(TreeNode* root){
+        if (root==NULL) return 0;
+        int l=dep(root->left);
+        int r=dep(root->right);
+        return max(l,r)+1;
+    }
+
+    void maxd(TreeNode* root,int &result){
+        if (root==NULL) return;
+        result=max(dep(root->left)+dep(root->right),result);
+        maxd(root->left,result);
+        maxd(root->right,result);
+    }
+};
