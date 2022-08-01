@@ -1,0 +1,16 @@
+class Solution {
+    int max=0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        dep(root);
+        return max;
+    }
+    private int dep(TreeNode root){ // This part we use max to denote the max diameter, and dep is for denoting the depth of node
+        if (root==null) return 0;
+        int l=dep(root.left);
+        int r=dep(root.right);
+        max=Math.max(l+r,max);
+        return Math.max(l,r)+1;
+    }
+    
+    
+}
