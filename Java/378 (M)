@@ -1,0 +1,13 @@
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int[] p=new int[matrix.length*matrix.length];
+        for (int i=0;i<matrix.length;i++){
+            for (int j=0;j<matrix.length;j++){
+                p[i*matrix.length+j]=matrix[i][j];
+            }
+        }
+        Arrays.sort(p);
+        return p[k-1];
+        
+    }
+}
