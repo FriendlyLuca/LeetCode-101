@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        map<int,int> mp;
+        for (int i=0;i<nums.size();i++){
+            if (mp.find(nums[i])==mp.end())
+                mp[nums[i]]=1;
+            else
+                mp[nums[i]]++;
+            if (mp[nums[i]]>nums.size()/2)
+                return nums[i];
+        }
+        return -1;     //其实根本不会从这返回，但是还是写一个返回值表示不存在这样的数
+    }
+};
