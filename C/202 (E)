@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        set<int> se;   
+        while (se.find(n)==se.end()){  //即当前的计算没有进入循环
+            se.insert(n);
+            n=su(n);
+        }
+        return n==1?true:false;
+    }
+    int su(int n){
+        int sum=0;
+        while (n>0){
+            sum+=(n%10)*(n%10);
+            n/=10;
+        }
+        return sum;
+    }
+};
