@@ -1,0 +1,17 @@
+class Solution:
+    def su(self,n:int) -> int:
+        sum=0
+        while (n>0):
+            sum+=((n%10)*(n%10))
+            n//=10                       #注意这里是//，不是/，否则则是无限循环出不来了
+        return sum
+    
+    def isHappy(self, n: int) -> bool:
+        se=set()
+        while not (n in se):
+            se.add(n)
+            n=self.su(n)
+        return True and n==1 or False
+    
+    
+    
