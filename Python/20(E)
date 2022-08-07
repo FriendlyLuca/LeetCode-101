@@ -1,0 +1,11 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        se=[]
+        for i in range(len(s)):
+            if s[i]=='(' or s[i]=='{' or s[i]=='[':
+                se.append(s[i])
+            elif (len(se)>0 )and((s[i]==')' and se[len(se)-1]=='(')or(s[i]=='}' and se[len(se)-1]=='{')or(s[i]==']' and se[len(se)-1]=='[')):
+                se.pop()
+            else:
+                return False
+        return len(se)==0
