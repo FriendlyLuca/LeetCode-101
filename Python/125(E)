@@ -1,0 +1,11 @@
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        ans=""
+        for i in range(len(s)):
+            if (ord(s[i])>=ord('a')and ord(s[i])<=ord('z') ):
+                ans+=s[i]
+            elif (ord(s[i])>=ord('A')and ord(s[i])<=ord('Z')):
+                ans+=chr(ord(s[i])-ord('A')+ord('a'))
+            elif (ord(s[i])>=ord('0')and ord(s[i])<=ord('9') ):
+                ans+=s[i]
+        return ans==ans[::-1]
