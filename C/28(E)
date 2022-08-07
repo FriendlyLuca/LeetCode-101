@@ -1,0 +1,6 @@
+class Solution { //用find()方法
+public:
+    int strStr(string haystack, string needle) {
+        return haystack.find(needle);
+    }
+};
