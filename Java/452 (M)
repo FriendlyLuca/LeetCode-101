@@ -1,0 +1,14 @@
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+        Arrays.sort(points,(p1,p2)->Integer.compare(p1[1],p2[1])); //以坐标尾为判断。因为是找出不重叠的区间。如果以头判断，那么则可能出现一个把区间都包括进去的，结果就不对了
+        int ar=points[0][1];
+        int ar_num=1;
+        for (int i=1;i<points.length;i++){
+            if (ar<points[i][0]){
+                ar=points[i][1];
+                ar_num++;
+            }
+        }
+        return ar_num;
+    }
+}
