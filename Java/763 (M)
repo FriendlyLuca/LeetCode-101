@@ -1,0 +1,22 @@
+class Solution {
+    public List<Integer> partitionLabels(String s) {
+        int[] pos=new int[26];
+        Arrays.fill(pos,-1); //记录每个字母的最后一个位置
+        for (int i=0;i<s.length();i++){
+            pos[s.charAt(i)-'a']=i;
+        }
+        int max=0;
+        int pre=-1;
+        ArrayList<Integer> ans=new ArrayList<Integer>();
+        for (int i=0;i<s.length();i++){//如果一个字符串中所出现的字母的最后位置的最大值已经等于当前字母了，那么则可以切割了
+            if (max<pos[s.charAt(i)-'a']){
+                max=pos[s.charAt(i)-'a'];
+            }
+            if (max==i){
+                ans.add(max-pre);
+                pre=max;
+            }
+        }
+        return ans;
+    }
+}
