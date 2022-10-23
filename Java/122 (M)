@@ -1,0 +1,23 @@
+//把每次盈利的段都加上就行，就像台阶一样
+class Solution {
+    public List<Integer> partitionLabels(String s) {
+        int[] pos=new int[26];
+        Arrays.fill(pos,-1);
+        for (int i=0;i<s.length();i++){
+            pos[s.charAt(i)-'a']=i;
+        }
+        int max=0;
+        int pre=-1;
+        ArrayList<Integer> ans=new ArrayList<Integer>();
+        for (int i=0;i<s.length();i++){
+            if (max<pos[s.charAt(i)-'a']){
+                max=pos[s.charAt(i)-'a'];
+            }
+            if (max==i){
+                ans.add(max-pre);
+                pre=max;
+            }
+        }
+        return ans;
+    }
+}
