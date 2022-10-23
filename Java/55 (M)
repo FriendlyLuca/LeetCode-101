@@ -1,0 +1,12 @@
+//就是统计每个点所能到的最远距离。如果包括当下点在内的前面所能到的最远点已经等于当下的点时，那么停止循环，查看此时是否到数组末尾
+class Solution {
+    public boolean canJump(int[] nums) {
+        int fur=0;
+        for (int i=0;i<=fur&&i<nums.length;i++){
+            if (i+nums[i]>fur){
+                fur =nums[i]+i;
+            }
+        }
+        return fur>=nums.length-1;
+    }
+}
