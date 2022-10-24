@@ -33,3 +33,25 @@ class Solution {
         return st1.equals(st2);
     }
 }
+
+//或者倒着插入字符串中的字符，已有几个#就跳过之后的几个非#字符，最后来比较
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        return getRS(s).equals(getRS(t));
+    }
+    private String getRS(String s){
+        String res="";
+        int b=0;
+        for (int i=s.length()-1;i>=0;i--){
+            char c=s.charAt(i);
+            if (c=='#'){
+                b++;
+            }else if (b>0){
+                b--;
+            }else{
+                res+=c;
+            }
+        }
+        return res;
+    }
+}
