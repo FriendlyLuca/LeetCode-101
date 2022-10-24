@@ -1,0 +1,15 @@
+//快慢指针。l相当于永远指向重复数组的第一位，而r永远指向最后一位
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int l=0,r=1;
+        while(r<nums.length){
+            if (nums[r]==nums[l]){
+                r++;
+                continue;
+            }
+            l++;
+            nums[l]=nums[r];
+        }
+        return l+1;
+    }
+}
