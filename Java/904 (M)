@@ -1,0 +1,28 @@
+class Solution {
+    public int totalFruit(int[] fruits) {
+        HashSet<Integer> f=new HashSet<Integer>();
+        int max=0;
+        int l=0,r=0;
+        int[] nums=new int[fruits.length];
+        nums[fruits[l]]++;
+        f.add(fruits[l]);
+        while(r<fruits.length){
+            while(f.size()<=2){
+                r++;
+                if (max<r-l)
+                    max=r-l;
+                if (r==fruits.length)
+                    break;
+                f.add(fruits[r]);
+                nums[fruits[r]]++;
+            }
+            while(f.size()>2){
+                nums[fruits[l]]--;
+                if (nums[fruits[l]]==0)
+                    f.remove(fruits[l]);
+                l++;
+            }
+        }
+        return max;
+    }
+}
