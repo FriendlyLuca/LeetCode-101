@@ -1,0 +1,17 @@
+class Solution {
+    public int mySqrt(int x) {
+        int l=1,r=x;
+        int mid=(r-l)/2+l;
+        while(l<=r){
+            mid=(r-l)/2+l;
+            if (x/mid==mid)
+                return mid;
+            else if(x/mid>mid){
+                l=mid+1;
+            }else{
+                r=mid-1;
+            }
+        }
+        return r; //一定要分情况讨论。当mid正好等于x的根时，返回mid. 2.当l=r大于x的根时，下一步r=l-1,应返回r 3.当l=r小于x的根时，下一步l=r+1,因返回r
+    }
+}
