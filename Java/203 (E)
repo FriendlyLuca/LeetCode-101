@@ -1,0 +1,30 @@
+//用一个虚拟头节点，可以使得原先的头节点较容易地被删除。同时返回时记得返回虚拟头节点的下一个节点
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode dh=new ListNode();
+        dh.val=val+1;
+        dh.next=head;
+        ListNode pre=dh;
+        ListNode cur=pre.next;
+        while(cur!=null){
+            if (cur.val==val){
+                cur=cur.next;
+                pre.next=cur;
+            }else{
+                pre=cur;
+                cur=cur.next;
+            }
+        }
+        return dh.next;
+    }
+}
