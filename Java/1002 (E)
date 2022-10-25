@@ -1,0 +1,30 @@
+//对每个单词的字母频率都建立哈希表，然后将要输出的哈希表的字母频率取最小值。最后遍历该表并添加字母，转化为字符串
+class Solution {
+    public List<String> commonChars(String[] words) {
+        int[] num=new int[26];
+        ArrayList<String> ans=new ArrayList<String>();
+        for (int i=0;i<words[0].length();i++){
+            char c=words[0].charAt(i);
+            num[c-'a']++;
+        }
+        for (int i=1;i<words.length;i++){ 
+            int[] temp=new int[26];
+            for (int j=0;j<words[i].length();j++){
+                char c=words[i].charAt(j);
+                temp[c-'a']++;
+            }
+            for (int j=0;j<26;j++){
+                if (temp[j]<num[j])
+                    num[j]=temp[j];
+            }
+        }
+        for (int i=0;i<26;i++){
+            while(num[i]>0){
+                char c=(char)(i+'a');//此处记得加上'a'
+                ans.add(String.valueOf(c));
+                num[i]--;
+            }
+        }
+        return ans;
+    }
+}
