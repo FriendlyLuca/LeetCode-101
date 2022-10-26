@@ -1,0 +1,17 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        boolean f=true;
+        int[] le=new int[26];
+        for (int i=0;i<magazine.length();i++){
+            le[magazine.charAt(i)-'a']++;
+        }
+        for (int i=0;i<ransomNote.length();i++){
+            if (le[ransomNote.charAt(i)-'a']==0){
+                f=false;
+                break;
+            }
+            le[ransomNote.charAt(i)-'a']--;
+        }
+        return f;
+    }
+}
