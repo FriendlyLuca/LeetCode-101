@@ -1,0 +1,29 @@
+class Solution {
+    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+    //首先定义 一个unordered_map，key放a和b两数之和，value 放a和b两数之和出现的次数。
+        HashMap<Integer,Integer> ts=new HashMap<Integer,Integer>();
+        int times=0;//定义int变量times，用来统计 a+b+c+d = 0 出现的次数。
+        int n=nums1.length;
+        //遍历大A和大B数组，统计两个数组元素之和，和出现的次数，放到map中。
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                int s12=nums1[i]+nums2[j];
+                if (ts.containsKey(s12)){
+                    ts.put(s12,ts.get(s12)+1);
+                }else{
+                    ts.put(s12,1);
+                }
+            }
+        }
+        //在遍历大C和大D数组，找到如果 0-(c+d) 在map中出现过的话，就用times把map中key对应的value也就是出现次数统计出来。
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                int s34=nums3[i]+nums4[j];
+                if (ts.containsKey(0-s34)){
+                    times+=ts.get(0-s34);
+                }
+            }
+        }
+        return times;
+    }
+}
