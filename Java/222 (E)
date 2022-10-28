@@ -1,0 +1,10 @@
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root==null)
+            return 0;
+        int result=countNodes(root.left)+countNodes(root.right)+1;
+        return result;
+    }
+}
+
+//还有一种针对完全二叉树的做法，之后补充
