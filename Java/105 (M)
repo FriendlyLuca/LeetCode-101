@@ -1,0 +1,24 @@
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        TreeNode root=bT(preorder,0,preorder.length-1,inorder,0,inorder.length-1);
+        return root;
+    }
+    private TreeNode bT(int[] preorder,int preBegin,int preEnd,int[] inorder,int inBegin,int inEnd){
+        if (preBegin>preEnd){
+            return null;
+        }
+        int root=preBegin;
+        TreeNode node=new TreeNode(preorder[preBegin]);
+        for (int i=inBegin;i<=inEnd;i++){
+            if (inorder[i]==preorder[preBegin]){
+                root=i;
+                break;
+            }
+        }
+        int leftLength=root-inBegin;
+        int rightLength=inEnd-root;
+        node.left=bT(preorder,preBegin+1,preBegin+leftLength,inorder,inBegin,root-1);
+        node.right=bT(preorder,preBegin+leftLength+1,preEnd,inorder,root+1,inEnd);
+        return node;
+    }
+}
