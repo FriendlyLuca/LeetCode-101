@@ -1,0 +1,25 @@
+
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        TreeNode root=bt(inorder,0,inorder.length-1,postorder,0,postorder.length-1);
+        return root;
+    }
+    private TreeNode bt(int[] inorder,int inBegin,int inEnd,int[] postorder,int postBegin,int postEnd){
+        if (postBegin>postEnd){//由于中序数组与后序数组长度总相等，所以只用判断一次。且条件为起始值大于终止值，返回空节点。
+            return null;
+        }
+        TreeNode node=new TreeNode(postorder[postEnd]);
+        int root=inBegin;
+        for (int i=inBegin;i<=inEnd;i++){
+            if (inorder[i]==postorder[postEnd]){
+                root=i;
+                break;
+            }
+        }
+        int leftLength=root-inBegin;
+        int rightLength=inEnd-root;
+        node.left=bt(inorder,inBegin,root-1,postorder,postBegin,postBegin+leftLength-1);
+        node.right=bt(inorder,root+1,inEnd,postorder,postBegin+leftLength,postEnd-1);
+        return node;
+    }
+}
