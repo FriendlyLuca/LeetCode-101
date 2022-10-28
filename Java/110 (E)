@@ -13,3 +13,24 @@ class Solution {
             return Math.max(dep(root.left),dep(root.right))+1;
     }
 }
+//把判断失衡的放到求深度的函数中
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return getDepth(root)!=-1;
+    }
+    private int getDepth(TreeNode node){
+        if (node==null)
+            return 0;
+        int d;
+        int ld=getDepth(node.left);
+        int rd=getDepth(node.right);
+        if (ld-rd>1||ld-rd<-1){
+            return -1;
+        }
+        if (ld!=-1&&rd!=-1){
+            d=Math.max(ld,rd)+1;
+        }else
+            d=-1;
+        return d;
+    }
+}
