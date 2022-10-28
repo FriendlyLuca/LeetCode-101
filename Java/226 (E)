@@ -1,0 +1,27 @@
+/** 想清楚，只用在遍历中交换左右子树就行。中序遍历不行，因为先遍历左子树再交换再遍历右子树等于遍历了两遍原来的左子树
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root==null)
+            return null;
+        TreeNode temp=root.left;
+        root.left=root.right;
+        root.right=temp;
+        invertTree(root.right);
+        invertTree(root.left);
+        return root;
+    }
+}
