@@ -1,0 +1,29 @@
+class Solution {
+    public boolean repeatedSubstringPattern(String str) {
+	int l = str.length();
+	for(int i=l/2;i>=1;i--) {
+		if(l%i==0) {
+			int m = l/i,j=1;
+			String subS = str.substring(0,i);
+			for(;j<m;j++) {
+				if (!str.substring(j*i,(j+1)*i).equals(subS))
+                    break;
+			}
+			if(j==m) return true;
+		}
+	}
+	return false;
+    }
+}
+
+//方法2，待证，似乎不严谨
+class Solution {
+    public boolean repeatedSubstringPattern(String str) {
+	    String s=str+str;
+        s=s.substring(1,s.length()-1);
+        if (s.contains(str))
+            return true;
+        else
+            return false;
+    }
+}
