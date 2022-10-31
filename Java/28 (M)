@@ -1,0 +1,45 @@
+//经典KMP问题。把needle想做一把标尺。暴力算法是每次往后移一格，而next数组帮助我们直接跳过不成立的格子，直接比较格子中的next(now-1)与当前为的值。并不断迭代now的值，直到比较成功或now为0
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int len=needle.length();
+        ArrayList<Integer> next=next(needle);
+        int n=0,h=0;
+        while (n<needle.length()&&h<haystack.length()){
+            if (needle.charAt(n)==haystack.charAt(h)){
+                n++;
+                h++;
+            }else if(n>0){
+                n=next.get(n-1);
+            }else{
+                h++;
+            }
+        }
+        if (n==needle.length())
+            return h-n;
+        else
+            return -1;
+        
+    }
+    // next数组的建立。next数组的定义为，第i位的值表示着有next[i]位的前缀与后缀相同。
+    private ArrayList<Integer> next(String s){
+        char[] ca=s.toCharArray();
+        ArrayList<Integer> ans=new ArrayList<Integer>();
+        ans.add(0);
+        int now=0,x=1;
+        while(x<s.length()){
+            if (ca[now]==ca[x]){
+                ans.add(now+1);//now的坐标是从0开始，故位数为now+1
+                now++;
+                x++;
+            }else if(now>0){
+                now=ans.get(now-1);
+            }else{
+                ans.add(0);
+                x++;
+            }
+        }
+        return ans;
+        
+    }
+}
