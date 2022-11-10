@@ -1,0 +1,27 @@
+class MyStack {
+    Queue<Integer> q;
+    public MyStack() {
+        q=new LinkedList<Integer>();
+    }
+    
+    public void push(int x) { //在添加的时候将新元素顶到最前面。由于每次添加都这样，所以自然就变成逆序了。之后的操作也方便很多
+        int size=q.size();
+        q.offer(x);
+        while(size>0){
+            q.offer(q.poll());
+            size--;
+        }
+    }
+    
+    public int pop() {
+        return q.poll();
+    }
+    
+    public int top() {
+        return q.peek();
+    }
+    
+    public boolean empty() {
+        return q.isEmpty();
+    }
+}
