@@ -1,0 +1,20 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> st=new Stack<Integer>();//本质上还是用一个栈，遇到数字就压入，遇到符号就用弹出的两个数运算后再压入结果
+        for (String s:tokens){
+            if (s.equals("+")){//用equals方法
+                st.push(st.pop()+st.pop());
+            }else if (s.equals("-")){
+                st.push(0-st.pop()+st.pop());
+            }else if (s.equals("*")){
+                st.push(st.pop()*st.pop());
+            }else if (s.equals("/")){
+                int temp=st.pop();
+                st.push(st.pop()/temp);
+            }else{
+                st.push(Integer.valueOf(s));//转换string 为int
+            }
+        }
+        return st.pop();
+    }
+}
