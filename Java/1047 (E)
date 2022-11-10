@@ -1,0 +1,19 @@
+class Solution {
+    public String removeDuplicates(String s) {
+        ArrayDeque<Character> st = new ArrayDeque<>();
+        for (int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if (st.size()==0||st.peek()!=ch){
+                st.push(ch);
+            }else{
+                st.pop();
+            }
+        }
+        StringBuilder ans=new StringBuilder();//用StringBuilder拼接字符串更快
+        while(st.size()>0){
+            ans.append(st.pop());
+        }
+        ans=ans.reverse();
+        return ans.toString();
+    }
+}
