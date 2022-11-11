@@ -1,6 +1,6 @@
 class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        LinkedList<List<Integer>> ans=new LinkedList<List<Integer>>();//用Linked List来做前插
+        LinkedList<List<Integer>> ans=new LinkedList<List<Integer>>();//用Linked List来做前插，如果是List<List<Integer>>的话，父类并不能调用子类的方法，所以没法用addFirst
         Queue<TreeNode> q=new LinkedList<TreeNode>();
         if (root!=null)
             q.offer(root);
