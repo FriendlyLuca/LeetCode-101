@@ -1,0 +1,20 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer,Integer> hm=new HashMap<Integer,Integer>();
+        ArrayList<Integer> array=new ArrayList<Integer>();
+        for (int i=0;i<nums.length;i++){
+            if (hm.containsKey(nums[i])){
+                hm.put(nums[i],hm.get(nums[i])+1);
+            }else{
+                hm.put(nums[i],1);
+                array.add(nums[i]);
+            }
+        }
+        Collections.sort(array,(a,b)->hm.get(b)-hm.get(a));
+        int[] ans=new int[k];
+        for (int i=0;i<k;i++){
+            ans[i]=array.get(i);
+        }
+        return ans;
+    }
+}
