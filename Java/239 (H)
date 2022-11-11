@@ -1,0 +1,40 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        MyQueue mq=new MyQueue();
+        for (int i=0;i<k;i++){
+            mq.push(nums[i]);
+        }
+        int[] ans=new int[nums.length-k+1];
+        ans[0]=mq.max();
+        for (int i=1;i+k-1<nums.length;i++){
+            mq.poll(nums[i-1]);
+            mq.push(nums[i+k-1]);
+            ans[i]=mq.max();
+        } 
+        return ans;
+    }
+    
+}
+class MyQueue{//用双端队列定义一个队列的类。此队列出口总是为最大值。
+    Deque<Integer> dq;
+    MyQueue(){
+        dq=new LinkedList<Integer>();
+    }
+
+    public void push(int x){//x入队时，从队尾不断直接弹出小于x的值。这表示着抛弃x之前的小于x的值。因为x存在的时间始终比他们久，又比他们大，所以他们不会是最大值。
+        while(!dq.isEmpty()&&dq.peekLast()<x){
+            dq.pollLast();
+        }
+        dq.offerLast(x);
+    }
+
+    public void poll(int x){//x出队时，如果他是队首，直接出队，此后的队首是一个x之后的且第二大的值。为当下最大值。而x不是队首时，则不用管。因为当前队首位置必然比x靠后，则添加队首时其实已经把x弹出过了
+        if (dq.peekFirst()==x){
+            dq.pollFirst();
+        }
+    }
+
+    public int max(){//队首始终是最大值。队列始终是排序好的
+        return dq.peekFirst();
+    }
+}
