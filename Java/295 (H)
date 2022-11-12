@@ -1,0 +1,31 @@
+//用两个优先队列来实现大小顶堆，先把数添加至大顶堆。当大顶堆的长度比小顶堆多2时，则弹出大顶堆顶部，添加至小顶堆中。当两边长度一样时，大顶堆队首可能会大于小顶堆队首，则需要交换一下
+class MedianFinder {
+    Queue<Integer> sq=new PriorityQueue<Integer>((a,b)->a-b);
+    Queue<Integer> lq=new PriorityQueue<Integer>((a,b)->b-a);
+    public MedianFinder() {
+        
+    }
+    
+    public void addNum(int num) {
+        lq.offer(num);
+        if (lq.size()>sq.size()+1)//先放到大顶堆中，然后平衡长度
+            sq.offer(lq.poll());
+        if (!sq.isEmpty()&&lq.peek()>sq.peek()){//当先前两边长度一致时，小顶堆队首可能是小于要添加的元素的。然而元素被直接压入大顶堆了，所以此处对于这种情况要交换两边队首，保证lq始终小于sq的元素
+            int tem1=lq.poll();
+            int tem2=sq.poll();
+            sq.offer(tem1);
+            lq.offer(tem2);
+        }
+    }
+    
+    public double findMedian() {
+        if (lq.size()!=sq.size()){
+            if (sq.isEmpty()||sq.peek()>lq.peek())
+                return lq.peek();
+            else
+                return sq.peek();
+        }
+        else
+            return (double)(lq.peek()+sq.peek())/2;
+    }
+}
