@@ -1,0 +1,36 @@
+//中序遍历输出数组，当为递增数组时，则说明是二叉搜索树
+class Solution {
+    ArrayList<Integer> in=new ArrayList<Integer>();
+    public boolean isValidBST(TreeNode root) {
+        inorder(root);
+        for (int i=1;i<in.size();i++){
+            if (in.get(i-1)>=in.get(i))
+                return false;
+        }
+        return true;
+    }
+    public void inorder(TreeNode root){
+        if (root==null)
+            return;
+        inorder(root.left);
+        in.add(root.val);
+        inorder(root.right);
+        return;
+    }
+}
+//直接比较更新最大值，当最大值大于当前值时，返回错误
+class Solution {
+    TreeNode max;//这里切记不可以是TreeNode max=new TreeNode(),否则max不可能为空。而max一旦不为空，很难设置一个max的初始值比最小值还小
+    public boolean isValidBST(TreeNode root) {
+        if (root==null)
+            return true;
+        boolean l=isValidBST(root.left);
+        if (max!=null&&max.val>=root.val)
+            return false;
+        else
+            max=root;
+        boolean r=isValidBST(root.right);
+            return l&&r;
+    }
+    
+}
