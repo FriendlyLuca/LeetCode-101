@@ -1,0 +1,16 @@
+class Solution {
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if (root1==null&&root2==null){
+            return null;
+        }else if (root1==null&&root2!=null){//当其中一个树为空时，直接返回另一个
+            return root2;
+        }else if (root2==null&&root1!=null){
+            return root1;
+        }else{
+           TreeNode new_node=new TreeNode(root1.val+root2.val); 
+           new_node.left=mergeTrees(root1.left,root2.left);
+           new_node.right=mergeTrees(root1.right,root2.right);
+           return new_node;
+        }
+    }
+}
