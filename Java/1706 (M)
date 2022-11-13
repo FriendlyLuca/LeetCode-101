@@ -1,0 +1,29 @@
+class Solution {
+    public int[] findBall(int[][] grid) {
+        int[] ans=new int[grid[0].length];
+        for (int i=0;i<grid[0].length;i++){
+            ans[i]=out(grid,i);
+        }
+        return ans;
+    }
+    private int out(int[][] grid,int start){//判断单个球的出口
+        int row=grid.length;
+        int col=grid[0].length;
+        int c=start;
+        for (int i=0;i<row;i++){
+            if (grid[i][c]==1){
+                if (c==col-1||grid[i][c+1]==-1){
+                    return -1;
+                }else{
+                    c++;
+                }
+            }else{
+                if (c==0||grid[i][c-1]==1)
+                    return -1;
+                else
+                    c--;
+            }
+        }
+        return c;
+    }
+}
