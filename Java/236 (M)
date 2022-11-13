@@ -1,0 +1,19 @@
+//算法的主要思想还是后序遍历，并向上传递。比如该节点的子树中含有p或q或者null，都向上传。而一个节点两个子树分别有p,q时，向上传自己。而当一个节点只有一个子树有内容时，不断传有内容的那个值。
+//因此公共祖先找到后向上传，其他枝一定是空的。所以最终能把公共祖先传到根上。当p或q为公共祖先时，他的子树也不再遍历了。向上传时其他分支也一定是空值。所以最后这个p或者q能传回去，符合要求。
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root==p||root==q||root==null)
+            return root;
+        TreeNode left=lowestCommonAncestor(root.left,p,q);
+        TreeNode right=lowestCommonAncestor(root.right,p,q);
+        if (left==null&&right==null){
+            return null;
+        }else if(left!=null&&right==null){
+            return left;
+        }else if (left==null&&right!=null){
+            return right;
+        }else{
+            return root;
+        }
+    } 
+}
