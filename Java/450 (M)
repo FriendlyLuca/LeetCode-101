@@ -1,0 +1,36 @@
+//在bst树中删除节点时，分情况讨论删除节点的子树状态
+//1.节点为叶子节点时，直接返回null即可
+//2.节点有一子树为空时，返回另一子节点即可
+//3，节点左右子节点均存在，那么我们要找到右子树中最左（值最小）的那个节点，因为它已经最左了，所以必然没有左子树，于是让它的左孩子等于当前节点的左孩子。然后返回当前节点的右孩子
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root==null)
+            return null;
+        if (root.val==key){
+            if (root.left==null&&root.right==null)//1.节点为叶子节点时，直接返回null即可
+                return null;
+            else if (root.left==null&&root.right!=null){//2.节点有一子树为空时，返回另一子节点即可
+                return root.right;
+            }else if (root.left!=null&&root.right==null){
+                return root.left;
+            }else{
+                mostLeft(root.right).left=root.left;//右子树最左节点的左孩子为左子树
+                return root.right;//返回右孩子
+            }
+        }
+        if (root.val>key){
+            root.left=deleteNode(root.left,key);
+        }else{
+            root.right=deleteNode(root.right,key);
+        }
+        return root;
+    }
+    private TreeNode mostLeft(TreeNode root){//找出二叉树中最左边的节点
+        if (root.left==null){
+            return root;
+        }
+        else
+            return mostLeft(root.left);
+        
+    }
+}
