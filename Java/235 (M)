@@ -1,0 +1,11 @@
+//因为是bst树，我们要找的其实就是第一个值介于p,q间的节点。当当前值大于p,q时，说明在左子树中，返回左子树的遍历，相反则向右。此外则表示p,q恰好分别位于于两个子树之中（或该节点本身），于是返回该节点。
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root.val>p.val&&root.val>q.val)
+            return lowestCommonAncestor(root.left,p,q);
+        else if (root.val<p.val&&root.val<q.val)
+            return lowestCommonAncestor(root.right,p,q);
+        else
+            return root;
+    }
+}
