@@ -1,0 +1,13 @@
+//右中左低遍历BST,更新节点值为之前值的和
+class Solution {
+    int pre_sum=0;
+    public TreeNode convertBST(TreeNode root) {
+        if (root==null)
+            return null;
+        root.right=convertBST(root.right);
+        root.val+=pre_sum;
+        pre_sum=root.val;
+        root.left=convertBST(root.left);
+        return root;    
+    }
+}
