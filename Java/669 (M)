@@ -1,0 +1,36 @@
+//写法1，如果root需要被修剪，用root某子树修建的结果来代替root,之后再修建root的两个子树
+class Solution {
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        if (root==null)
+            return null;
+        if (root.val<low){
+                root=trimBST(root.right,low,high);
+        }
+        else if (root.val>high){
+                root=trimBST(root.left,low,high);
+        }
+        if (root!=null&&root.left!=null)
+            root.left=trimBST(root.left,low,high);
+        if (root!=null&&root.right!=null)
+            root.right=trimBST(root.right,low,high);
+        return root;
+    }
+}
+//写法2.root需要被修建时，直接返回root某子树修建后的结果来代替root,相当于root直接被删除掉了，然后在递归中如果root不需要被修建，则修建root的两个子树
+class Solution {
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        if (root==null)
+            return null;
+        if (root.val<low){
+                return trimBST(root.right,low,high);
+        }
+        else if (root.val>high){
+                return trimBST(root.left,low,high);
+        }
+        if (root.left!=null)
+            root.left=trimBST(root.left,low,high);
+        if (root.right!=null)
+            root.right=trimBST(root.right,low,high);
+        return root;
+    }
+}
