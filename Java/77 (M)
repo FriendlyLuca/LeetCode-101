@@ -1,0 +1,19 @@
+class Solution {
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+    List<Integer> com=new ArrayList<Integer>();
+    public List<List<Integer>> combine(int n, int k) {
+        addcom(n,k,1);
+        return ans;
+    }
+    private void addcom(int n,int k,int start){
+        if (k==0){//当已经不需要再选新的元素时，将com添加至ans
+            ans.add(new ArrayList(com));
+            return;
+        }
+        for (int i=start;i<=n-k+1;i++){
+            com.add(i);
+            addcom(n,k-1,i+1);
+            com.remove(com.size()-1);
+        }
+    }
+}
