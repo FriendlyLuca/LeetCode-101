@@ -1,0 +1,22 @@
+class Solution {
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+    List<Integer> com=new ArrayList<Integer>();
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        backtracking(k,n,1);
+        return ans;
+    }
+    private void backtracking(int k,int sum,int start){
+        if (k==0){//当已经不能添加新数时终止
+            if (sum==0)//sum刚好为0时把组合添加至答案
+                ans.add(new ArrayList(com));
+            return;
+        }
+        if (sum<0)//在k尚为正数时，如果前面的数和已经比目标要大了，可以直接中断不用再循环了，节省循环次数
+            return;
+        for (int i=start;i<=9-k+1;i++){
+            com.add(i);
+            backtracking(k-1,sum-i,i+1);
+            com.remove(com.size()-1);
+        }
+    }
+}
