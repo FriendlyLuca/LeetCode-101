@@ -1,0 +1,35 @@
+class Solution {
+    List<String> ans=new ArrayList<String>();
+    StringBuilder ip=new StringBuilder();
+    public List<String> restoreIpAddresses(String s) {
+        comb(s,0);
+        return ans;    
+    }
+    private void comb(String s,int times){
+        if (times==3||s==null){//当已经添加了三位ip地址或者s已经为空时停止，判断剩余的s是否符合一位ip
+            if (isq(s)){
+                ip.append(s);
+                ans.add(ip.toString());
+                ip.delete(ip.length()-s.length(),ip.length());
+            }
+            return;
+        }
+        for (int i=1;i<=3&&i<=s.length();i++){//将s开头的1-3位添加为一位ip地址
+            if (isq(s.substring(0,i))){
+                ip.append(s.substring(0,i));
+                ip.append(".");
+                comb(s.substring(i),times+1);
+                ip.delete(ip.length()-i-1,ip.length());
+            }
+        }
+    }
+    private boolean isq(String s){//判断s是否符合单个ip地址
+        if (s.length()>3||s.length()==0||(s.charAt(0)=='0'&&s.length()>1))
+            return false;
+        int num=0;
+        for (int i=0;i<s.length();i++){
+            num=num*10+s.charAt(i)-'0';
+        }
+        return num>=0&&num<=255;
+    }
+}
