@@ -1,0 +1,25 @@
+//题目中可以重复的是相同值的不同数被选两次，不能重复的是两个相同值的数各自被其他相同的组合所选。
+class Solution {
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+    List<Integer> com=new ArrayList<Integer>();
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);//将数组排序以便之后去重
+        comb(candidates,target,0);
+        return ans;
+    }
+    private void comb(int[] candidates, int target,int start){
+        if (start==candidates.length||target<=0){
+            if (target==0)
+                ans.add(new ArrayList(com));
+            return;
+        }
+        for (int i=start;i<candidates.length;i++){
+            if (i!=start&&candidates[i-1]==candidates[i]){//当面对一组连续的相同数时，在同一层内，我们只能选第一个，其余的跳过。但是进入下一层时，相同的下一个数还是能被选择的。
+                continue;
+            }
+            com.add(candidates[i]);
+            comb(candidates,target-candidates[i],i+1);
+            com.remove(com.size()-1);
+        }
+    }
+}
