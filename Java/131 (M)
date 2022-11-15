@@ -1,0 +1,28 @@
+class Solution {
+    List<List<String>> ans=new ArrayList<List<String>>();
+    List<String> com=new ArrayList<String>();
+    public List<List<String>> partition(String s) {
+        combo(s);
+        return ans;
+    }
+    void combo(String s){
+        if (s.length()==0){
+            ans.add(new ArrayList(com));
+            return;
+        }
+        for (int i=1;i<=s.length();i++){
+            if (isP(s.substring(0,i))){
+                com.add(s.substring(0,i));
+                combo(s.substring(i));
+                com.remove(com.size()-1);
+            }
+        }
+    }
+    boolean isP(String s){
+        for (int i=0;i<s.length()/2;i++){
+            if (s.charAt(i)!=s.charAt(s.length()-i-1))
+                return false;
+        }
+        return true;
+    }
+}
