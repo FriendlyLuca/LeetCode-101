@@ -1,0 +1,41 @@
+class Solution {
+    List<String> ans=new ArrayList<String>();
+    StringBuilder sb=new StringBuilder();
+    public List<String> letterCombinations(String digits) {
+        HashMap<Integer,char[]> hm=new HashMap<Integer,char[]>();
+        char c='a';
+        for (int i=2;i<=6;i++){
+            char[] tempc=new char[3];
+            for (int j=0;j<3;j++){
+                tempc[j]=c++;
+            }
+            hm.put(i,tempc);
+        }
+        char[] temp7={'p','q','r','s'};
+        hm.put(7,temp7);
+        char[] temp8={'t','u','v'};
+        hm.put(8,temp8);
+        char[] temp9={'w','x','y','z'};
+        hm.put(9,temp9);
+        int[] d=new int[digits.length()];
+        for (int i=0;i<digits.length();i++){
+            d[i]=digits.charAt(i)-'0';
+            System.out.println(d[i]);
+            System.out.println(hm.get(d[i])[0]);
+        }
+        backtracking(d,digits.length(),0,hm);
+        return ans;
+    }
+    private void backtracking(int[] d,int n,int index,HashMap<Integer,char[]> hm){
+        if (index==n){
+            if (sb.length()>0)
+                ans.add(sb.toString());
+            return;
+        }
+        for (int i=0;i<hm.get(d[index]).length;i++){
+            sb.append(hm.get(d[index])[i]);
+            backtracking(d,n,index+1,hm);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+}
