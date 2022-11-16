@@ -1,0 +1,36 @@
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length()!=t.length())
+            return false;
+        HashMap<Character,Integer> hm1=new HashMap<Character,Integer>();
+        HashMap<Character,Integer> hm2=new HashMap<Character,Integer>();
+        for (int i=0;i<s.length();i++){
+            if (hm1.containsKey(s.charAt(i))&&hm2.containsKey(t.charAt(i))){
+                if(hm1.get(s.charAt(i))!=hm2.get(t.charAt(i))){
+                    return false;
+                }
+            }else if (!hm1.containsKey(s.charAt(i))&&!hm2.containsKey(t.charAt(i))){
+                hm1.put(s.charAt(i),i);
+                hm2.put(t.charAt(i),i);
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+}
+/***************************************************************************/
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        int[] s1=new int[256];
+        int[] t1=new int[256];
+        for (int i=0;i<s.length();i++){
+            char sc=s.charAt(i);
+            char tc=t.charAt(i);
+            if (s1[sc]!=t1[tc])
+                return false;
+            s1[sc]=t1[tc]=i+1;
+        }
+        return true;
+    }
+}
