@@ -1,0 +1,22 @@
+//子集就是返回每一步的path
+class Solution {
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+    List<Integer> subsets=new ArrayList<Integer>();
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        addAns(nums,0);
+        return ans;
+    }
+    private void addAns(int[] nums,int start){
+        ans.add(new ArrayList(subsets));
+        if (start>=nums.length)
+            return;
+        for (int i=start;i<nums.length;i++){//在同一层时，同值的数只选第一个
+            if (i!=start&&nums[i]==nums[i-1])
+                continue;
+            subsets.add(nums[i]);
+            addAns(nums,i+1);
+            subsets.remove(subsets.size()-1);
+        }
+    }
+}
