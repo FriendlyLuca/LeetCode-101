@@ -1,0 +1,16 @@
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> ans=new PriorityQueue<Integer>((a,b)->b-a);//优先队列从大到小
+        for (int i=0;i<stones.length;i++){
+            ans.offer(stones[i]);
+        }
+        while(ans.size()>1){
+            int y=ans.poll();
+            int x=ans.poll();
+            if (y-x>0){
+                ans.offer(y-x);
+            }
+        }
+        return ans.isEmpty()?0:ans.poll();
+    }
+}
