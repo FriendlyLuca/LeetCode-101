@@ -1,0 +1,27 @@
+//还是子集问题。注意点为在同一层选择中不要添加相同元素。由于原序列并非有序，所以之前那种相同值添加第一个已经行不通。需要用一个哈希表来记录同层所选值
+class Solution {
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+    ArrayList<Integer> path=new ArrayList<Integer>();
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        addAns(nums,0);
+        return ans;
+    }
+    private void addAns(int[]nums,int start){
+        if (path.size()>=2)//要到序列长度至少为2时才压入答案
+            ans.add(new ArrayList(path));
+        if (start==nums.length)
+            return;
+        HashSet<Integer> hs=new HashSet<Integer>();//记录这一层被选过的值
+        for (int i=start;i<nums.length;i++){//这一层这个数值已被选过了则跳过
+            if (hs.contains(nums[i]))
+                continue;
+            else
+                hs.add(nums[i]);
+            if (path.size()==0||nums[i]>=path.get(path.size()-1)){//序列为空或者当前值大于等于序列中最后一个值时才压入并回溯
+                path.add(nums[i]);
+                addAns(nums,i+1);
+                path.remove(path.size()-1);
+            }
+        }
+    }
+}
