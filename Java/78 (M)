@@ -1,0 +1,18 @@
+//思路和其他回溯差不多。其他回溯是添加完所有的叶子节点后返回。而这个是在遍历的过程中每一步都返回已有的路径中的节点。因此得到的所有子集。
+class Solution {
+    List<Integer> comb=new ArrayList<Integer>();
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+    public List<List<Integer>> subsets(int[] nums) {
+        sub(nums,0);
+        return ans;
+    }
+    private void sub(int[] nums,int start){
+        ans.add(new ArrayList(comb));
+        for(int i=start;i<nums.length;i++){
+            comb.add(nums[i]);
+            sub(nums,i+1);
+            comb.remove(comb.size()-1);
+        }
+    }
+
+}
