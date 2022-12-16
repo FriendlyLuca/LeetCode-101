@@ -1,0 +1,58 @@
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap<String,Integer> f=new HashMap<String,Integer>();
+        Comparator<String> comparator=new Comparator<String>(){
+            public int compare(String a,String b){
+                if (f.get(b)!=f.get(a)){
+                    return f.get(b)-f.get(a);
+                }else{
+                    return a.compareTo(b);
+                }
+            }
+        };
+        PriorityQueue<String> pq=new PriorityQueue<String>(comparator);
+        for(String s:words){
+            if (f.containsKey(s)){
+                f.put(s,f.get(s)+1);
+            }else{
+                f.put(s,1);
+            }
+        }
+        for(String s:words){//把频率统计好后再添加优先队列，否则只会按照添加时的频率排序
+            if (!pq.contains(s)){
+                pq.offer(s);
+            }
+        }
+        List<String> ans=new ArrayList<String>();
+        for (int i=0;i<k;i++){
+            ans.add(pq.poll());
+        }
+        return ans;
+    }
+}
+
+
+//用lambda简化
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap<String,Integer> f=new HashMap<String,Integer>();
+        PriorityQueue<String> pq=new PriorityQueue<String>((a,b)->f.get(b)!=f.get(a)?f.get(b)-f.get(a):a.compareTo(b));
+        for(String s:words){
+            if (f.containsKey(s)){
+                f.put(s,f.get(s)+1);
+            }else{
+                f.put(s,1);
+            }
+        }
+        for(String s:words){
+            if (!pq.contains(s)){
+                pq.offer(s);
+            }
+        }
+        List<String> ans=new ArrayList<String>();
+        for (int i=0;i<k;i++){
+            ans.add(pq.poll());
+        }
+        return ans;
+    }
+}
