@@ -1,0 +1,13 @@
+public class Solution {
+    // you need to treat n as an unsigned value
+    public int hammingWeight(int n) {
+        int num=0;
+        long unsignedInt = n & 0xffffffffL;
+        while(unsignedInt>0){
+            if((unsignedInt&1)==1)
+                num++;
+            unsignedInt=unsignedInt>>1;
+        }
+        return num;
+    }
+}
