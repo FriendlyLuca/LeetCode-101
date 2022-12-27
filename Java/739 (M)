@@ -1,0 +1,19 @@
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        Stack<Integer> s=new Stack<Integer>();
+        int[] ans=new int[temperatures.length];
+        s.push(0);
+        for (int i=1;i<temperatures.length;i++){//用单调栈来记录，在哪一位被弹出就说明当前第一次遇到比自己大的数字要进栈了
+            if (temperatures[s.peek()]>=temperatures[i]){
+                s.push(i);
+            }else{
+                while(!s.isEmpty()&&temperatures[s.peek()]<temperatures[i]){
+                    int small=s.pop();
+                    ans[small]=i-small;
+                }
+                s.push(i);
+            }
+        }
+        return ans;
+    }
+}
