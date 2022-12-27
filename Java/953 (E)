@@ -1,0 +1,26 @@
+class Solution {
+    public boolean isAlienSorted(String[] words, String order) {
+        int[] or=new int[26];
+        for (int i=0;i<order.length();i++){
+            or[order.charAt(i)-'a']=i;
+        }
+        Comparator<String> comparator=new Comparator<String>(){
+            public int compare(String a,String b){
+                int i=0;
+                while(i<a.length()&&i<b.length()){
+                    char ch1=a.charAt(i);
+                    char ch2=b.charAt(i);
+                    if (ch1!=ch2){
+                        return or[ch1-'a']-or[ch2-'a'];
+                    }else{
+                        i++;
+                    }
+                }
+                return a.length()-b.length();
+            }
+        };
+        String[] k=Arrays.copyOf(words,words.length);
+        Arrays.sort(words,comparator);
+        return Arrays.equals(k,words);
+    }
+}
