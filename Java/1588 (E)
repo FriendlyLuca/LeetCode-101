@@ -1,0 +1,14 @@
+//思路是，每个数字若被选入奇数序列，其左边与右边的数字个数一定奇偶相同。因此出现次数的总数为左奇*右奇+左偶*右偶，其中个数为0也算偶数。
+class Solution {
+    public int sumOddLengthSubarrays(int[] arr) {
+        int sum=0;
+        for (int i=0;i<arr.length;i++){
+            int lo=i/2+i%2;
+            int le=i-lo+1;
+            int ro=(arr.length-i-1)/2+(arr.length-i-1)%2;
+            int re=arr.length-i-1-ro+1;
+            sum+=(lo*ro+le*re)*arr[i];
+        }
+        return sum;
+    }
+}
