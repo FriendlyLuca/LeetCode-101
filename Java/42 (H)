@@ -1,0 +1,23 @@
+//按照每一列来统计雨水量。每一列的雨水量=左边最高列（包括自己）与右边最高列（包括自己）中较矮的一个，减去当前列的高度。然后累加就行
+class Solution {
+    public int trap(int[] height) {
+        int maxl=0,maxr=0;
+        int[] ml=new int[height.length];
+        int[] mr=new int[height.length];
+        for (int i=0;i<height.length;i++){//统计左边与右边最高列
+            if (height[i]>maxl){
+                maxl=height[i];
+            }
+            ml[i]=maxl;
+            if (height[height.length-1-i]>maxr){
+                maxr=height[height.length-1-i];
+            }
+            mr[height.length-1-i]=maxr;
+        }
+        int sum=0;
+        for (int i=1;i<height.length-1;i++){
+            sum+=Math.min(ml[i],mr[i])-height[i];//每一列雨水等于左边最高与右边最高中较短的一列，减去当前高度
+        }
+        return sum;
+    }
+}
