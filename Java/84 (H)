@@ -1,0 +1,42 @@
+//用两个单调栈，找出每一列左边和右边第一个小于自己的列数。则可以形成一个矩阵，长为r-l-1,高为本列高度。
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        Stack<Integer> sr=new Stack<Integer>();
+        Stack<Integer> sl=new Stack<Integer>();
+        int[] ml=new int[heights.length];
+        int[] mr=new int[heights.length];
+        sr.push(0);
+        sl.push(heights.length-1);
+        Arrays.fill(ml,-1);//如果左边没有比本列低的，可想象为坐标-1的列比本列低
+        Arrays.fill(mr,heights.length);//如果右边没有比本列低的，可想象坐标为heights.length比本列低
+        for (int i=1;i<heights.length;i++){
+            if (heights[i]>=heights[sr.peek()]){
+                sr.push(i);
+            }else{
+                while(!sr.isEmpty()&&heights[i]<heights[sr.peek()]){
+                    int temp=sr.pop();
+                    mr[temp]=i;
+                }
+                sr.push(i);
+            }
+        }
+        for (int i=heights.length-2;i>=0;i--){
+            if (heights[i]>=heights[sl.peek()]){
+                sl.push(i);
+            }else{
+                while(!sl.isEmpty()&&heights[i]<heights[sl.peek()]){
+                    int temp=sl.pop();
+                    ml[temp]=i;
+                }
+                sl.push(i);
+            }
+        }
+        int max=0;
+        for (int i=0;i<heights.length;i++){
+            int l=mr[i]-ml[i]-1;
+            int sq=l*heights[i];
+            max=Math.max(max,sq);
+        }
+        return max;
+    }
+}
