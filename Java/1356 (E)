@@ -1,0 +1,15 @@
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        Integer[] ans=Arrays.stream(arr).boxed().toArray(Integer[]::new);
+        Arrays.sort(ans,(a,b)->bit(a)==bit(b)?a-b:bit(a)-bit(b));
+        return Arrays.stream(ans).mapToInt(Integer::valueOf).toArray();
+    }
+    private int bit(int a){
+        int num=0;
+        while(a>0){
+            num+=a&1;
+            a=a>>1;
+        }
+        return num;
+    }
+}
