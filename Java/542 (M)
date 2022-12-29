@@ -1,0 +1,35 @@
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int[][] dis=new int[mat.length][mat[0].length];
+        Queue<int[]> q=new LinkedList<>();
+        for (int i=0;i<mat.length;i++){
+            for (int j=0;j<mat[0].length;j++){
+                if (mat[i][j]==1)
+                    dis[i][j]=20001;
+                else{
+                    q.offer(new int[]{i,j});
+                }
+            }
+        }
+        int dist=0;
+        int[] nx={-1,0,1,0};
+        int[] ny={0,-1,0,1};
+        while(!q.isEmpty()){
+            int size=q.size();
+            dist++;
+            for (int i=0;i<size;i++){
+                int[] node=q.poll();
+                for (int j=0;j<4;j++){
+                    int x=node[0]+nx[j];
+                    int y=node[1]+ny[j];
+                    if (x>=0&&x<mat.length&&y>=0&&y<mat[0].length&&mat[x][y]==1&&dis[x][y]>dist){
+                        dis[x][y]=dist;
+                        q.offer(new int[]{x,y});
+                    }
+                    
+                }
+            }
+        }
+        return dis;
+    }
+}
