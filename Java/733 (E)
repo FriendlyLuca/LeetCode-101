@@ -1,0 +1,36 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int[][] v=new int[image.length][image[0].length];
+        Queue<int[]> q=new LinkedList<int[]>();
+        v[sr][sc]=1;
+        int tar=image[sr][sc];
+        q.offer(new int[]{sr,sc});
+        while(!q.isEmpty()){
+            int[] node=q.poll();
+            int r=node[0];
+            int c=node[1];
+            image[r][c]=color;
+            if (r>0&&v[r-1][c]==0&&image[r-1][c]==tar){
+                v[r-1][c]=1;
+                image[r-1][c]=color;
+                q.offer(new int[]{(r-1),c});
+            }
+            if (c>0&&v[r][c-1]==0&&image[r][c-1]==tar){
+                v[r][c-1]=1;
+                image[r][c-1]=color;
+                q.offer(new int[]{r,c-1});
+            }
+            if (r<image.length-1&&v[r+1][c]==0&&image[r+1][c]==tar){
+                v[r+1][c]=1;
+                image[r+1][c]=color;
+                q.offer(new int[]{(r+1),c});
+            }
+            if (c<image[0].length-1&&v[r][c+1]==0&&image[r][c+1]==tar){
+                v[r][c+1]=1;
+                image[r][c+1]=color;
+                q.offer(new int[]{r,c+1});
+            }
+        }
+        return image;
+    }
+}
