@@ -1,0 +1,24 @@
+class Solution {
+    ArrayList<Integer> arr=new ArrayList<Integer>();
+    public boolean findTarget(TreeNode root, int k) {
+        inorder(root);
+        int left=0,right=arr.size()-1;
+        while(left<right){
+            if (arr.get(left)+arr.get(right)==k){
+                return true;
+            }else if (arr.get(left)+arr.get(right)<k){
+                left++;
+            }else{
+                right--;
+            }
+        }
+        return false;
+    }
+    private void inorder(TreeNode root){
+        if (root==null)
+            return;
+        inorder(root.left);
+        arr.add(root.val);
+        inorder(root.right);
+    }
+}
