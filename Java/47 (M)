@@ -28,3 +28,34 @@ class Solution {
         }
     }
 }
+
+//更好的去重方法
+class Solution {
+    List<List<Integer>> ans=new ArrayList<List<Integer>>();
+    List<Integer> per=new ArrayList<Integer>();
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        int[] used=new int[nums.length];
+        Arrays.sort(nums);//为了方便之后去重，先排序
+        findp(nums,used);
+        return ans;
+    }
+    private void findp(int[] nums,int[] used){
+        if (per.size()==nums.length){
+            ans.add(new ArrayList(per));
+            return;
+        }
+        for (int i=0;i<nums.length;i++){
+            if (used[i]==1){
+                continue;
+            }
+            if (i>0&&nums[i]==nums[i-1]&&used[i-1]==0){//相当于，若used[i-1]==0时，则说明已选中的per中i-1还没被选过，又因为i-1一定会早于i先选，所以一定是同层中已经选过i-1了，于是跳过。当有很多相同的数值时达到的效果是一样的。这样排序比哈希表快
+                continue;
+            }
+            per.add(nums[i]);
+            used[i]=1;
+            findp(nums,used);
+            used[i]=0;
+            per.remove(per.size()-1);
+        }
+    }
+}
