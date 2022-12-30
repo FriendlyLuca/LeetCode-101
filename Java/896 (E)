@@ -1,0 +1,19 @@
+class Solution {
+    public boolean isMonotonic(int[] nums) {
+        return notin(nums)||notde(nums);
+    }
+    private boolean notin(int[] nums){
+        for (int i=0;i<nums.length-1;i++){
+            if (nums[i]<nums[i+1])
+                return false;
+        }
+        return true;
+    }
+    private boolean notde(int[] nums){
+        for (int i=0;i<nums.length-1;i++){
+            if (nums[i]>nums[i+1])
+                return false;
+        }
+        return true;
+    }
+}
