@@ -1,0 +1,36 @@
+class Solution {
+    List<String> ans=new ArrayList<String>();
+    StringBuilder sb=new StringBuilder();
+    public List<String> letterCasePermutation(String s) {
+        solution(s,0);
+        return ans;
+    }
+    private boolean lc(char a){
+        return (a>='a'&&a<='z');
+    }
+    private boolean uc(char a){
+        return (a>='A'&&a<='Z');
+    }
+    private char trans(char a){
+        if (lc(a))
+            a+='A'-'a';
+        else
+            a+='a'-'A';
+        return a;
+    }
+    private void solution(String s,int index){
+        if (index==s.length()){
+            ans.add(sb.toString());
+            return;
+        }
+        char ch=s.charAt(index);
+        if (lc(ch)||uc(ch)){
+            sb.append(trans(ch));
+            solution(s,index+1);
+            sb.deleteCharAt(index);
+        }
+        sb.append(ch);
+        solution(s,index+1);
+        sb.deleteCharAt(index);
+    }
+}
