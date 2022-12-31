@@ -1,0 +1,17 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int[] f=new int[26];
+        int max=0;
+        int l=0,r=0;
+        while (r<s.length()){
+            f[s.charAt(r)-'A']++;
+            max=Math.max(max,f[s.charAt(r)-'A']);
+            r++;
+            if (r-l>max+k){
+                f[s.charAt(l)-'A']--;
+                l++;
+            }
+        }
+        return r-l;//返回的不是k+max,因为k次可能不一定全部用完。因此应该返回窗口的长度。并且上述窗口长度只会扩张不会缩小
+    }
+}
