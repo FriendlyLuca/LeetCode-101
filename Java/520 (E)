@@ -1,0 +1,21 @@
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        if (isC(word.charAt(0))){
+            for(int i=1;i<word.length()-1;i++){
+                if (isC(word.charAt(i))!=isC(word.charAt(i+1))){
+                    return false;
+                }
+            }
+        }else{
+            for (int i=1;i<word.length();i++){
+                if (isC(word.charAt(i))){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean isC(char a){
+        return a<='Z'&&a>='A';
+    }
+}
