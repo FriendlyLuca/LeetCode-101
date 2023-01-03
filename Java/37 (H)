@@ -1,0 +1,51 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        solve(board,0,0);
+    }
+    private boolean solve(char[][] board,int x,int y){
+        if (board[x][y]!='.'){
+            if (x==8&&y==8){
+                return true;
+            }
+            else if (y==8)
+                return solve(board,x+1,0);
+            else
+                return solve(board,x,y+1);
+        }
+        for (char k='1';k<='9';k++){
+            if (isV(board,x,y,k)){
+                board[x][y]=k;
+                int nx,ny;
+                if (x==8&&y==8){
+                    return true;
+                }else if (y==8){
+                    ny=0;
+                    nx=x+1;
+                }else{
+                    ny=y+1;
+                    nx=x;
+                }
+                if (solve(board,nx,ny))//回溯至下一格，如果最终结果都为true的话，就能顺利返回了。之后也不用再继续循环了。不然遍历完了发现为false，则证明此处无解，就会退回上一空格重新选另一个值。
+                    return true;
+                board[x][y]='.';
+            }
+        }
+        return false;
+    }
+    private boolean isV(char[][] board,int x,int y,char value){//判断在x,y处填value是否有冲突
+        for (int i=0;i<9;i++){
+            if (board[x][i]==value||board[i][y]==value){
+                return false;
+            }
+        }
+        int ix=x/3;
+        int iy=y/3;
+        for (int i=0;i<3;i++){
+            for (int j=0;j<3;j++){
+                if (board[ix*3+i][iy*3+j]==value)
+                    return false;
+            }
+        }
+        return true;
+    }
+}
