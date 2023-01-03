@@ -1,0 +1,51 @@
+class Solution {
+    List<List<String>> ans=new ArrayList<List<String>>();
+    public List<List<String>> solveNQueens(int n) {
+        char[][] board=new char[n][n];
+        for (int i=0;i<n;i++){//初始化棋盘
+            for (int j=0;j<n;j++){
+                board[i][j]='.';
+            }
+        }
+        eq(board,0);
+        return ans;
+    }
+    private void eq(char[][]board,int r){//将符合情况的八皇后棋盘填入答案，此处迭代用row来迭代
+        if (r==board.length){
+            ans.add(so(board));
+        }
+        for (int j=0;j<board.length;j++){
+                if (isV(board,r,j)){
+                    board[r][j]='Q';
+                    eq(board,r+1);
+                    board[r][j]='.';
+                }
+            }
+    }
+    private ArrayList<String> so(char[][] board){//将棋盘字符数组转化为字符串arraylist
+        ArrayList<String> boardarr=new ArrayList<String>();
+        for (int i=0;i<board.length;i++){
+            StringBuilder sb=new StringBuilder();
+            for (int j=0;j<board.length;j++){
+                sb.append(board[i][j]);
+            }
+            boardarr.add(new String(sb.toString()));
+        }
+        return boardarr;
+    }
+    private boolean isV(char[][] board,int x,int y){//验证填入x,y时，是否与x行之前的皇后起冲突
+        for (int i=0;i<x;i++){//因为是按照行填的， 所以只用验证x行之前的情况，并且不用检验同一行是否有冲突
+            if (board[i][y]=='Q')
+                return false;
+        }
+        for (int i=x-1,j=y-1;i>=0&&j>=0;i--,j--){
+            if (board[i][j]=='Q')
+                return false;
+        }
+        for (int i=x-1,j=y+1;i>=0&&j<board.length;i--,j++){
+            if (board[i][j]=='Q')
+                return false;
+        }
+        return true;
+    }
+}
