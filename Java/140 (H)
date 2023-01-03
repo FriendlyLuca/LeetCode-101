@@ -1,0 +1,26 @@
+class Solution {
+    List<String> ans=new ArrayList<>();
+    StringBuilder sb=new StringBuilder();
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        wb(s,wordDict);
+        return ans;
+    }
+    private void wb(String s,List<String> wordDict){//回溯法
+        if (s.length()==0){
+            ans.add(new String(sb.toString()));
+        }
+        for (int i=0;i<wordDict.size();i++){
+            if (s.startsWith(wordDict.get(i))){
+                sb.append(wordDict.get(i));
+                if (wordDict.get(i).length()!=s.length()){
+                    sb.append(" ");
+                }
+                wb(s.substring(wordDict.get(i).length(),s.length()),wordDict);
+                if (sb.charAt(sb.length()-1)==' '){
+                    sb.deleteCharAt(sb.length()-1);
+                }
+                sb.delete(sb.length()-wordDict.get(i).length(),sb.length());
+            }
+        }
+    }
+}
