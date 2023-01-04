@@ -1,0 +1,26 @@
+//回溯法。比较慢
+class Solution {
+    List<String> path=new ArrayList<String>();
+    public List<String> findItinerary(List<List<String>> tickets) {
+        Collections.sort(tickets,(a,b)->a.get(1).compareTo(b.get(1)));//将机票按照目的地排序
+        int[] used=new int[tickets.size()];//可直接用机票编号来记录机票是否用过
+        path.add("JFK");
+        find(tickets,"JFK",used);
+        return path;
+    }
+    private boolean find(List<List<String>> tickets,String start,int[] used){
+        if (path.size()==tickets.size()+1)
+            return true;
+        for (int index=0;index<tickets.size();index++){
+            if (tickets.get(index).get(0).equals(start)&&used[index]==0){
+                used[index]=1;
+                path.add(new String(tickets.get(index).get(1)));
+                if (find(tickets,tickets.get(index).get(1),used))
+                    return true;
+                path.remove(path.size()-1);
+                used[index]=0;
+            }
+        }
+        return false;
+    }
+}
