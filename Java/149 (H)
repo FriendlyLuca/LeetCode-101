@@ -1,0 +1,19 @@
+class Solution {
+    public int maxPoints(int[][] points) {
+        int max=1;
+        for (int i=0;i<points.length;i++){
+            for (int j=i+1;j<points.length;j++){
+                int p=2;
+                int dx=points[j][0]-points[i][0];
+                int dy=points[j][1]-points[i][1];
+                for (int k=j+1;k<points.length;k++){
+                    if ((points[k][1]-points[i][1])*dx==dy*(points[k][0]-points[i][0]))
+                        p++;
+                }
+                if (p>max)
+                    max=p;
+            }
+        }
+        return max;
+    }
+}
