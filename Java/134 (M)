@@ -13,3 +13,4 @@ class Solution {
         return sum<0?-1:(index+1)%gas.length;
     }
 }
+//sum表示油箱从0到i所剩的油。如果sum最后小于0，则不可能跑完。如果sum大于0，则用min记录sum的最小值，把这点作为最后一站即可。当sum最小值不止一处时，选最后一处的下一站为起点
