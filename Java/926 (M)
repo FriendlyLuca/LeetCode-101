@@ -1,0 +1,26 @@
+//统计每个数字左边的1数和右边的0数，相加就是翻转的数量。遍历每一个节点翻转所需的翻转数，统计最小值
+class Solution {
+    public int minFlipsMonoIncr(String s) {
+        int f0=0,f1=0;
+        int n=s.length();
+        int[] al=new int[n];
+        int[] ar=new int[n];
+        for (int i=1;i<n;i++){
+            if (s.charAt(i-1)=='1'){
+                f1++;
+            }
+            al[i]=f1;
+            if (s.charAt(n-i)=='0'){
+                f0++;
+            }
+            ar[n-i-1]=f0;
+        }
+        int min=n;
+        for (int i=0;i<n;i++){
+            if (min>ar[i]+al[i]){
+                min=ar[i]+al[i];
+            }
+        }
+        return min;
+    }
+}
