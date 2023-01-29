@@ -1,0 +1,23 @@
+class Solution {
+    public int jump(int[] nums) {
+        if (nums.length<=1){
+            return 0;
+        }
+        int maxl=nums[0];
+        int range=nums[0];
+        int step=1;
+        for (int i=1;i<nums.length;i++){      
+            if (range>=nums.length-1){
+                break;
+            }  
+            if (maxl<i+nums[i]){
+                maxl=i+nums[i];
+            }
+            if (i==range){
+                range=maxl;
+                step++;
+            }
+        }
+        return step;
+    }
+}
