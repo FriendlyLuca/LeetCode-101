@@ -1,0 +1,35 @@
+class Solution {
+    public int monotoneIncreasingDigits(int n) {
+        if (n<10)
+            return n;
+        ArrayList<Integer> num=new ArrayList<>();
+        while(n>0){
+            num.add(n%10);
+            n/=10;
+        }
+        int minu=-1;
+        boolean flag=false;
+        int ans=0;
+        int pre=num.get(0);
+        for (int i=1;i<num.size();i++){
+            int cur=num.get(i);
+            if (cur>pre){
+                flag=true;
+                minu=i;
+                pre=cur-1;
+            }else{
+                pre=cur;
+            }
+        }
+        for (int i=num.size()-1;i>=0;i--){
+            int cur=num.get(i);
+            if (i==minu){
+                cur--;
+            }else if (i<minu){
+                cur=9;
+            }
+            ans=ans*10+cur;
+        }
+        return ans;
+    }
+}
