@@ -1,0 +1,17 @@
+class Solution {
+    public int integerBreak(int n) {
+        int[] dp=new int[n+1];//dp[i]表示i分割的最大结果
+        dp[0]=0;
+        dp[1]=1;
+        for (int i=2;i<=n;i++){
+            int max=dp[i-1];
+            for (int j=1;j<=i/2;j++){//遍历i可能分割的所有情况找出最大值。当最后一个数为j时，只有两种可能，即分割为j与i-j或者分割为j与前（i-j）再细分（最大值为d[i-j]）
+                int tmax=Math.max(dp[i-j]*j,(i-j)*j);
+                if (tmax>max)
+                    max=tmax;
+            }
+            dp[i]=max;
+        }
+        return dp[n];
+    }
+}
