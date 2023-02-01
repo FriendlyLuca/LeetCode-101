@@ -1,0 +1,13 @@
+class Solution {
+    public int numTrees(int n) {
+        int[] dp=new int[n+1];//dp为有i个节点时bst的数量。
+        dp[0]=1;//想做一种情况，空树
+        dp[1]=1;
+        for (int i=2;i<=n;i++){
+            for (int j=0;j<i;j++){
+                dp[i]+=dp[j]*dp[i-j-1];//给每个节点轮流当根节点，当第j个节点为根节点时，左边的子树的bst数量为dp[j]，右边子树的bst数量为dp[i-j-1];
+            }
+        }
+        return dp[n];
+    }
+}
