@@ -1,0 +1,20 @@
+//backtracking
+class Solution {
+    int num=0;
+    public int findTargetSumWays(int[] nums, int target) {
+        bt(nums,0,target,0);
+        return num;
+    }
+    private void bt(int[] nums,int index,int target,int sum){
+        if (index==nums.length){
+            if (target==sum)
+            num++;
+            return;
+        }
+        bt(nums,index+1,target,sum+nums[index]);
+        bt(nums,index+1,target,sum-nums[index]);
+    }
+}
+
+
+//DP
