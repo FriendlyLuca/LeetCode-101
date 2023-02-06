@@ -1,0 +1,37 @@
+class Solution {
+    public int findMaxForm(String[] strs, int m, int n) {
+        int[][][] dp=new int[strs.length][m+1][n+1];//dp表示前k项字符串数组中，在0最长为m与1最长为n情况下的最优解
+        int a0=l0(strs[0]);
+        int a1=strs[0].length()-a0;
+        for (int i=0;i<=m;i++){//初始化字符串数组只有一项时的最优解。只要该字符串符合要求就选入，最优解为1；
+            for (int j=0;j<=n;j++){
+                if (i>=a0&&j>=a1){
+                    dp[0][i][j]=1;
+                }
+            }
+        }
+        for (int k=1;k<strs.length;k++){
+            int n0=l0(strs[k]);
+            int n1=strs[k].length()-n0;
+            for (int i=0;i<=m;i++){
+                for (int j=0;j<=n;j++){
+                    if (n0<=i&&n1<=j){//当前字符串符合选入要求时，比较选与不选的最好情况。当不符合时，直接不选
+                        dp[k][i][j]=Math.max(dp[k-1][i][j],dp[k-1][i-n0][j-n1]+1);
+                    }else{
+                       dp[k][i][j]=dp[k-1][i][j]; 
+                    }
+                }
+            }
+        }
+        return dp[strs.length-1][m][n];
+
+    }
+    private int l0(String s){//判断字符串中0的个数
+        int num=0;
+        for (int i=0;i<s.length();i++){
+            if (s.charAt(i)=='0')
+                num++;
+        }
+        return num;
+    }
+}
