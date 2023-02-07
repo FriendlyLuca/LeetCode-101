@@ -1,0 +1,18 @@
+class Solution {
+    public String customSortString(String order, String s) {
+        int[] o=new int[26];
+        for (int i=0;i<order.length();i++){
+            o[order.charAt(i)-'a']=i;
+        }
+        Character[] ans=new Character[s.length()];
+        for(int i=0;i<s.length();i++){
+            ans[i]=s.charAt(i);
+        }
+        Arrays.sort(ans,(a,b)->o[a-'a']-o[b-'a']);
+        StringBuilder sb=new StringBuilder();
+        for (int i=0;i<ans.length;i++){
+            sb.append(ans[i]);
+        }
+        return sb.toString();
+    }
+}
