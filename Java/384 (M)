@@ -1,0 +1,24 @@
+class Solution {
+    Random random=new Random();
+    int[] or;
+    int[] sh;
+    
+    public Solution(int[] nums) {
+        or=Arrays.copyOf(nums,nums.length);
+    }
+    
+    public int[] reset() {
+        return or;
+    }
+    
+    public int[] shuffle() {
+        sh=Arrays.copyOf(or,or.length);
+        for (int i=sh.length-1;i>=0;i--){
+            int index=random.nextInt(i+1);
+            int temp=sh[i];
+            sh[i]=sh[index];
+            sh[index]=temp;
+        }
+        return sh;
+    }
+}
