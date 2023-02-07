@@ -18,3 +18,34 @@ class Solution {
 
 
 //DP
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        int sum=0;
+        for (int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        if ((sum+target)%2==1||Math.abs(target)>sum)
+            return 0;
+        int cap=(sum+target)/2;//设正数项的和为x,负数项和则为sum-x，而target为x-(sum-x)=2x-sum。故正数项和为(sum+target)/2。转化为选取和为cap的背包问题
+        int[][] dp=new int[nums.length+1][cap+1];//dp代表着处理完前i个数中，和刚好达到j的数量。这里行数要为nums.length+1是因为当容量j=0时，什么数都不选的复合答案为1
+        int ans=0;
+        dp[0][0]=1;//容量为0且都不选的情况有一种
+        for (int i=0;i<=cap;i++){
+            if (i<nums[0]){
+                dp[1][i]=dp[0][i];
+            }else{
+                dp[1][i]=dp[0][i-nums[0]]+dp[0][i];
+            }
+        }
+        for (int i=1;i<nums.length;i++){
+            for (int j=0;j<=cap;j++){
+                if (j<nums[i]){
+                    dp[i+1][j]=dp[i][j];
+                }else{
+                    dp[i+1][j]=(dp[i][j-nums[i]]+dp[i][j]);
+                }
+            }
+        }
+        return dp[nums.length][cap];
+    }   
+}
