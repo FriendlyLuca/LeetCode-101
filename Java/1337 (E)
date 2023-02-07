@@ -1,0 +1,28 @@
+class Solution {
+    public int[] kWeakestRows(int[][] mat, int k) {
+        int[] rn=new int[mat.length];
+        Integer[] or=new Integer[mat.length];
+        for (int i=0;i<mat.length;i++){
+            or[i]=i;
+            rn[i]=ns(mat[i]);
+        }
+        Arrays.sort(or,(a,b)->rn[a]==rn[b]?a-b:rn[a]-rn[b]);
+        int[] ans=new int[k];
+        for (int i=0;i<k;i++){
+            ans[i]=or[i];
+        }
+        return ans;
+    }
+    private int ns(int[] row){
+        int l=0,r=row.length-1;
+        while(l<=r){
+            int mid=(r-l)/2+l;
+            if (row[mid]==1){
+                l=mid+1;
+            }else{
+                r=mid-1;
+            }
+        }
+        return l;
+    }
+}
