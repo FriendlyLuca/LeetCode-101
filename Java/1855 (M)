@@ -19,3 +19,20 @@ class Solution {
         return max;
     }
 }
+
+//双指针法更快，算法复杂度为O(m+n)
+class Solution {
+    public int maxDistance(int[] nums1, int[] nums2) {
+        int max=0;
+        int l=0,r=0;//l,r指针分别表示两个数组的指针。因为l总是小于r的，并且如果先前已经取值max=r-l了那么之后因为l一定会后移，所以r不可能左移。所以可以用双指针
+        while(r<nums2.length&&l<nums1.length){
+            while (l<nums1.length&&nums1[l]>nums2[r]){//让l一直滑动到小于等于当前r的需求的位置,因为不满足当前位置的l肯定不会满足之后的r，所以可以这样做
+                l++;
+            }
+            if (l<nums1.length&&r>l)//如果当前r是大于l的，则更新比较max
+                max=max>r-l?max:r-l;
+            r++;
+        }
+        return max;
+    }
+}
