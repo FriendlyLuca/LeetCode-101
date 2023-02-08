@@ -1,0 +1,21 @@
+//遍历nums1中的每个数，用二分查找找出大于该数的最大坐标，更新max差值
+class Solution {
+    public int maxDistance(int[] nums1, int[] nums2) {
+        int max=0;
+        for (int i=0;i<nums1.length;i++){
+            int l=i+max,r=nums2.length-1;//这里l=i比较好理解，然而加上max是为了剪枝，即如果最后得出的插值不足以更新max，就直接不找了
+            if (r<l)
+                continue;
+            while(l<=r){
+                int mid=(r-l)/2+l;
+                if (nums2[mid]<nums1[i]){
+                    r=mid-1;
+                }else{
+                    l=mid+1;
+                }
+            }
+            max=max<r-i?r-i:max;
+        }
+        return max;
+    }
+}
