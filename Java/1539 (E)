@@ -1,0 +1,19 @@
+//两种情况。第一种是arr[0]之前就已经缺失了大于等于k位数了，即arr[0]>k,那么第k个缺的就是k。第二种情况，找出数组中缺失小于k的最大的数。记为缺失m位。那么第k个数一定是在该数之后的k-m位
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+        if (arr[0]>k){
+            return k;
+        }
+        int l=0,r=arr.length-1;
+        while(l<=r){
+            int mid=(r-l)/2+l;
+            int m=arr[mid]-mid-1;
+            if (m>=k){
+                r=mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return k-(arr[r]-r-1)+arr[r];
+    }
+}
