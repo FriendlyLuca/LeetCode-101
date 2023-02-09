@@ -1,0 +1,27 @@
+//把后缀按照首字母分组装好。选取第i组与第j组时，假如两组长度分别为ni与nj，相同后缀x个，则两组可以增加新名字2*（ni-x）(nj-x)个
+class Solution {
+    public long distinctNames(String[] ideas) {
+        HashSet<String>[] suffix=new HashSet[26];//用HashSet存储，处理数据比arraylist 快很多
+        for (int i=0;i<26;i++){
+            suffix[i]=new HashSet<>();
+        }
+        for (int i=0;i<ideas.length;i++){
+            suffix[ideas[i].charAt(0)-'a'].add(ideas[i].substring(1));
+        }
+        long ans=0;
+        for(int i=0;i<25;i++){
+            if (suffix[i].size()==0)
+                continue;
+            for (int j=i+1;j<26;j++){
+                long com=0;
+                for (String su:suffix[i]){
+                    if (suffix[j].contains(su)){
+                        com++;
+                    }
+                }
+                ans+=2*(suffix[i].size()-com)*(suffix[j].size()-com);
+            }
+        }
+        return ans;
+    }
+}
