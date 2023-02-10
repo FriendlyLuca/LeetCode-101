@@ -1,0 +1,48 @@
+class Solution {
+    public int maxDistance(int[][] grid) {
+        int max=-1;
+        Queue<int[]> q=new LinkedList<>();
+        int[][] visit=new int[grid.length][grid[0].length];
+        for (int i=0;i<grid.length;i++){
+            for (int j=0;j<grid[0].length;j++){
+                if (grid[i][j]==1){
+                    int[] temp={i,j};
+                    q.offer(temp);
+                    visit[i][j]=1;
+                }
+            }
+        }
+        if (q.size()==0||q.size()==grid.length*grid[0].length)
+            return -1;
+        while(q.size()>0){
+            int size=q.size();
+            max++;
+            for (int k=0;k<size;k++){
+                int[] temp=q.poll();
+                int i=temp[0];
+                int j=temp[1];
+                if (i>0&&visit[i-1][j]==0){
+                    visit[i-1][j]=1;
+                    int[] node={i-1,j};
+                    q.offer(node);
+                }
+                if (i<grid.length-1&&visit[i+1][j]==0){
+                    visit[i+1][j]=1;
+                    int[] node={i+1,j};
+                    q.offer(node);
+                }
+                if (j>0&&visit[i][j-1]==0){
+                    visit[i][j-1]=1;
+                    int[] node={i,j-1};
+                    q.offer(node);
+                }
+                if (j<grid[0].length-1&&visit[i][j+1]==0){
+                    visit[i][j+1]=1;
+                    int[] node={i,j+1};
+                    q.offer(node);
+                }
+            }
+        }
+        return max;
+    }
+}
