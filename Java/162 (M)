@@ -1,0 +1,16 @@
+//直接转化为找最大值？
+class Solution {
+    public int findPeakElement(int[] nums) {
+        return findp(nums,0,nums.length-1);
+    }
+    private int findp(int[] nums,int l,int r){
+        if (l>r)
+            return -1;
+        if (l==r)
+            return l;
+        int mid=(r-l)/2+l;
+        int inl=findp(nums,l,mid);
+        int inr=findp(nums,mid+1,r);
+        return nums[inl]>nums[inr]?inl:inr;
+    }
+}
