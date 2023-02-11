@@ -1,0 +1,24 @@
+class Solution {
+    public int islandPerimeter(int[][] grid) {
+        int sum=0;
+        for (int i=0;i<grid.length;i++){
+            for (int j=0;j<grid[0].length;j++){
+                if (grid[i][j]==1)
+                    sum+=gn(grid,i,j);//不需要bfs，只需要统计每个陆地格子相邻的水格子数即可
+            }
+        }
+        return sum;
+    }
+    private int gn(int[][] grid,int x,int y){
+        int num=0;
+        if (x==0||grid[x-1][y]==0)
+            num++;
+        if (x==grid.length-1||grid[x+1][y]==0)
+            num++;
+        if (y==0||grid[x][y-1]==0)
+            num++;
+        if (y==grid[0].length-1||grid[x][y+1]==0)
+            num++;
+        return num;
+    }
+}
