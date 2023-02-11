@@ -1,0 +1,38 @@
+//本质上是bfs,搜索目标字符串
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        HashMap<String,Integer> far=new HashMap<>();
+        HashSet<String> visit=new HashSet<>();
+        Queue<String> q=new LinkedList<String>();
+        q.offer(beginWord);
+        far.put(beginWord,1);
+        visit.add(beginWord);
+        if (!wordList.contains(endWord)){
+            return 0;
+        }
+        int l=1;
+        while(q.size()>0&&!visit.contains(endWord)){
+            int size=q.size();
+            l++;
+            for (int i=0;i<size;i++){
+                String str=q.poll();
+                for (String next:wordList){
+                    if (link(str,next)&&!visit.contains(next)){
+                        visit.add(next);
+                        far.put(next,l);
+                        q.offer(next);
+                    }
+                }
+            }
+        }
+        return visit.contains(endWord)?far.get(endWord):0;
+    }
+    private boolean link(String a,String b){//判断两个字符串是否能相连
+        int n=0;
+        for (int i=0;i<a.length()&&n<2;i++){
+            if (a.charAt(i)!=b.charAt(i))
+                n++;
+        }
+        return n==1;
+    }
+}
