@@ -1,3 +1,4 @@
+//思路为用dfs，从叶子节点算该节点到父节点的乘客总量为多少，车数则为乘客/座位，向上取整
 class Solution {
     long cars=0;//总汽油数
     public long minimumFuelCost(int[][] roads, int seats) {
