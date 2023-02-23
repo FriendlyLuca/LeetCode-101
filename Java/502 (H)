@@ -1,0 +1,19 @@
+class Solution {
+    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+        PriorityQueue<int[]> pqC=new PriorityQueue<>((a,b)->a[1]-b[1]);//按启动资本从小到大排列
+        PriorityQueue<int[]> pqP=new PriorityQueue<>((a,b)->b[0]-a[0]);//按利润从大到小排列
+        for (int i=0;i<profits.length;i++){
+            pqC.offer(new int[]{profits[i],capital[i]});
+        }
+        for (int i=0;i<k;i++){//将符合当前资本可以启动的项目都压入pqP,然后弹出最大利润那项。并且之后再更新可以启动的项目。每次只启动最大利润那项
+            while(pqC.size()>0&&w>=pqC.peek()[1]){
+                pqP.offer(pqC.poll());
+            }
+            if (pqP.size()==0){
+                break;
+            }
+            w+=pqP.poll()[0];
+        }
+        return w;
+    }
+}
