@@ -1,0 +1,18 @@
+class Solution {
+    int max=-1001;
+    public int maxPathSum(TreeNode root) {
+        sumP(root);
+        return max;
+    }
+    private int sumP(TreeNode root){//返回的是该节点加上左右子路中最大的那条。如返回值小于0则返回0，表示不会选该节点
+        if (root==null)
+            return 0;
+        int left=sumP(root.left);
+        int right=sumP(root.right);
+        int sum=root.val+left+right;//这里加上左右子路和是因为max所求的是左子路加右子路加当前节点的和。不是单臂和
+        if (max<sum)
+            max=sum;
+        sum-=left<right?left:right;//但是在返回值时，还是返回单臂和，故减去左右子路中较小的那个
+        return sum<0?0:sum;
+    }
+}
