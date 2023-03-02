@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ //核心思想为，给每一种树结构编一个序号。然后将这种结构的根节点与序号存在pair中。用String来标识每个独特的树结构
+class Solution {
+    HashMap<String,Pair<TreeNode,Integer>> visit=new HashMap<>();
+    HashSet<TreeNode> repeat= new HashSet<>();
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        dfs(root);
+        return new ArrayList<>(repeat);
+    }
+    private int dfs(TreeNode root){//返回的是序号。0号代表空节点，序号从1开始
+        if (root==null){
+            return 0;
+        }
+        int[] tri={root.val,dfs(root.left),dfs(root.right)};//用一个三位数组来表示当前节点的结构。当有一个树与自己左右子树种类相同且自身值相同时，则重复了
+        String hash=Arrays.toString(tri);//用string来记录这个独特的结构编码
+        if (visit.containsKey(hash)){//若存在，就将之前原先的节点放入重复set中。不能放当前的节点，否则之后有可能重复放入。
+            Pair<TreeNode,Integer> pair=visit.get(hash);
+            repeat.add(pair.getKey());
+            return pair.getValue();//返回重复的那个编号
+        }else{
+            Pair<TreeNode,Integer> pair=new Pair(root,visit.size()+1);//否则将当前节点添加进去并编上新的编号
+            visit.put(hash,pair);
+            return pair.getValue();
+        }
+    }
+}
