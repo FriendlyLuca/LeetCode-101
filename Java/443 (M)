@@ -1,0 +1,34 @@
+class Solution {
+    public int compress(char[] chars) {
+        int l=0;
+        int index=1;
+        int repeat=1;
+        while(index<chars.length){
+            if (chars[index]!=chars[l]){
+                l++;
+                if (repeat>1){
+                    StringBuilder str=new StringBuilder();
+                    str.append(repeat);
+                    for (int i=0;i<str.length();i++){
+                        chars[l++]=str.charAt(i);
+                    }
+                }
+                chars[l]=chars[index];
+                repeat=1;
+            }else{
+                repeat++;
+            }
+            index++;
+        }
+        l++;
+        if (repeat>1){
+            StringBuilder str=new StringBuilder();
+            str.append(repeat);
+            for (int i=0;i<str.length();i++){
+                chars[l++]=str.charAt(i);
+            }
+        }
+        
+        return l;
+    }
+}
