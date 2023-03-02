@@ -1,0 +1,52 @@
+class Solution {//快排和归并排序
+    public int[] sortArray(int[] nums) {
+        ms(nums,0,nums.length-1);
+        return nums;
+    }
+    private void qs(int[] nums,int start,int end){
+        if (start>=end){
+            return;
+        }
+        int pi=nums[start];
+        int i=start,j=end;
+        while(i<j){
+            while(i<j&&nums[j]>pi){
+                j--;
+            }
+            if (i<j){
+                nums[i++]=nums[j];
+            }
+            while(i<j&&nums[i]<pi){
+                i++;
+            }
+            if (i<j){
+                nums[j--]=nums[i];
+            }
+        }
+        nums[j]=pi;
+        qs(nums,start,i-1);
+        qs(nums,i+1,end);
+    }
+    private void ms(int[] nums,int start,int end){
+        if (start>=end)
+            return;
+        int mid=(end-start)/2+start;
+        ms(nums,start,mid);
+        ms(nums,mid+1,end);
+        int index=0;
+        int[] temp=new int[end-start+1];
+        int p1=start,p2=mid+1;
+        while(p1<=mid&&p2<=end){
+            temp[index++]=nums[p1]<nums[p2]?nums[p1++]:nums[p2++];
+        }
+        while(p1<=mid){
+            temp[index++]=nums[p1++];
+        }
+        while(p2<=end){
+            temp[index++]=nums[p2++];
+        }
+        for (int i=start;i<=end;i++){
+            nums[i]=temp[i-start];
+        }
+    }
+}
