@@ -1,0 +1,36 @@
+class BrowserHistory {
+    ArrayList<String> his;
+    int cur;
+    int latest;
+    public BrowserHistory(String homepage) {
+        his=new ArrayList<>();
+        his.add(homepage);
+        cur=0;
+        latest=cur;
+    }
+    
+    public void visit(String url) {
+        cur++;
+        if (cur>=his.size())
+            his.add(url);
+        else
+            his.set(cur,url);
+        latest=cur;
+    }
+    
+    public String back(int steps) {
+        int index=cur-steps;
+        if (index<0)
+            index=0;
+        cur=index;
+        return his.get(cur);
+    }
+    
+    public String forward(int steps) {
+        if (cur+steps>latest){
+            cur=latest;
+        }else
+            cur+=steps;
+        return his.get(cur);
+    }
+}
