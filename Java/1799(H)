@@ -1,0 +1,37 @@
+class Solution {
+    public int maxScore(int[] nums) {
+        int n=nums.length;
+        int[][] gcds=new int[n][n];//记录nums中每一对数字的gcd
+        for (int i=0;i<n;i++){
+            gcds[i][i]=i;
+            for (int j=0;j<i;j++){
+                gcds[i][j]=nums[i]<nums[j]?gcd(nums[i],nums[j]):gcd(nums[j],nums[i]);
+                gcds[j][i]=gcds[i][j];
+            }
+        }
+        int m=1<<n;//用m个二进制数来记录nums中每一位处理的情况，范围从0到m-1。第i位为1表示nums[i]已被选过。最后返回dp[111...1111]
+        int [] dp=new int[m];
+        for (int k=1;k<m;k++){
+            int c1=Integer.bitCount(k);//记录二进制数k中1的个数。表示已经当前选取新的一对数后，nums中已经处理过的数字的状态
+            if (c1%2==1)//个数为单数则直接跳过，不符合情况
+                continue;
+            int max=0;
+            for (int i=1;i<n;i++){//对于有偶数个1的数字，遍历其中的每一对1,即i,j为1，通过dp计算出当前值，最后再取最大的为dp[k]
+                for (int j=0;j<i;j++){
+                    if ((1<<i&k)>0&&(1<<j&k)>0){//i位为1且j位为1
+                        int sum=c1/2*gcds[i][j]+dp[k-(1<<i)-(1<<j)];//其中c1/2表示当前是操作的论数，即题目中的i-th
+                        max=max>sum?max:sum;
+                    }
+                }
+            }
+            dp[k]=max;
+        }
+        return dp[m-1];
+        
+    }
+    private int gcd(int a,int b){
+        if (a==0)
+            return b;
+        return gcd(b%a,a);
+    }
+}
