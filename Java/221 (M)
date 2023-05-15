@@ -1,0 +1,24 @@
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        int[][] dp=new int[matrix.length][matrix[0].length];//来记录以当前坐标为右下角的最大正方形的边长
+        int max=0;
+        for (int i=0;i<matrix.length;i++){
+            dp[i][0]=matrix[i][0]-'0';
+            if (dp[i][0]==1)
+                max=1;
+        }
+        for (int i=1;i<matrix[0].length;i++){
+            dp[0][i]=matrix[0][i]-'0';
+            if (dp[0][i]==1)
+                max=1;
+        }
+        for (int i=1;i<matrix.length;i++){
+            for (int j=1;j<matrix[0].length;j++){
+                if (matrix[i][j]=='1')
+                    dp[i][j]=Math.min(dp[i-1][j],Math.min(dp[i-1][j-1],dp[i][j-1]))+1;//边长应该是左边一格、上边一个，左上一格中最小的边长加1
+                max=max>dp[i][j]?max:dp[i][j];
+            }
+        }
+        return max*max;//返回的是面积而非边长
+    }
+}
