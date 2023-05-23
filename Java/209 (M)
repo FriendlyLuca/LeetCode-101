@@ -18,3 +18,25 @@ class Solution {
         return min>nums.length?0:min;
     }
 }
+
+//faster
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int l=0,r=0;
+        int sum=0;
+        int minl=nums.length+1;
+        while(r<nums.length){
+            while(sum<target&&r<nums.length){
+                sum+=nums[r++];
+            }
+            if (r==nums.length&&sum<target)
+                break;
+            while(sum>=target){
+                sum-=nums[l++];
+            }
+            int len=r-l+1;
+            minl=Math.min(minl,len);
+        }
+        return minl>nums.length?0:minl;
+    }
+}
